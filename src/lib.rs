@@ -82,3 +82,29 @@ pub struct Attribute {
 pub enum ValueType {
     String, Number, Boolean, Null, Mixed
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn deserialize() -> Result<(), Box<dyn std::error::Error>> {
+        let dir = std::path::Path::new("mapbox-geostats/test/fixtures/expected");
+
+        for entry in std::fs::read_dir(dir)? {
+            let path = entry?.path();
+
+            if let Some(ext) = path.extension() {
+                let file_name = path.file_name().unwrap().to_str().unwrap();
+                // Skipping `no-features` since it's invalid, see https://github.com/mapbox/mapbox-geostats/issues/49
+                if ext == "json" && file_name != "no-features.json" {
+                    println!("deserializing {}", file_name);
+                    let json = std::fs::read_to_string(path)?;
+                    let _tilestats: Tilestats = serde_json::from_str(&json)?;
+                }
+            }
+        }
+
+        Ok(())
+    }
+}
