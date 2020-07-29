@@ -1,0 +1,3 @@
+[submodule "mapbox-geostats"]
+	path = mapbox-geostats
+	url = https://github.com/mapbox/mapbox-geostats
