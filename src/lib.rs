@@ -50,7 +50,9 @@ pub struct Layer {
 /// Possible geometry types in layers.
 #[derive(Debug, Serialize, Deserialize)]
 pub enum Geometry {
-    Point, LineString, Polygon
+    Point,
+    LineString,
+    Polygon,
 }
 
 /// Feature attribute details.
@@ -80,7 +82,11 @@ pub struct Attribute {
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "lowercase")]
 pub enum ValueType {
-    String, Number, Boolean, Null, Mixed
+    String,
+    Number,
+    Boolean,
+    Null,
+    Mixed,
 }
 
 #[cfg(test)]
