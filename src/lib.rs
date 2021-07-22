@@ -106,7 +106,8 @@ mod test {
                 if ext == "json" && file_name != "no-features.json" {
                     println!("deserializing {}", file_name);
                     let json = std::fs::read_to_string(path)?;
-                    let _tilestats: Tilestats = serde_json::from_str(&json)?;
+                    let result: Result<Tilestats, _> = serde_json::from_str(&json);
+                    assert!(result.is_ok());
                 }
             }
         }
